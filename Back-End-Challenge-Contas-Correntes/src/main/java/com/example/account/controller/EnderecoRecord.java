@@ -1,11 +1,12 @@
 package com.example.account.controller;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
-public record EnderecoRecord(@NotBlank long cep,
+public record EnderecoRecord(@NotNull long cep,
                              @NotBlank String estado,
                              @NotBlank String cidade,
                              @NotBlank String rua,
-                             @NotBlank long numero) {
+                             @NotNull long numero) {
 }
 

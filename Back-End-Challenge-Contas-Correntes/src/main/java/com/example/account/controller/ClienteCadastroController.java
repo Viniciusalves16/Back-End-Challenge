@@ -4,7 +4,6 @@ import com.example.account.model.Cliente;
 import com.example.account.repository.ClienteRespository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,14 +19,13 @@ public class ClienteCadastroController {
 
     @PostMapping("/cliente")
     @Transactional
-    public ResponseEntity cadastroCliente(@Valid @RequestBody ClienteRecord clienteRecord,
-                                          Cliente cliente,
+    public ResponseEntity cadastroCliente( @RequestBody @Valid ClienteRecord clienteRecord,
                                           UriComponentsBuilder uriComponentsBuilder) {
 
-        BeanUtils.copyProperties(clienteRecord, cliente);
+        var clienteTemp = new Cliente(clienteRecord);
 
-        var uri = uriComponentsBuilder.path("/cliente").buildAndExpand(cliente.getId()).toUri();
-        return ResponseEntity.created(uri).body(clienteRespository.save(cliente));
+        var uri = uriComponentsBuilder.path("/cliente").buildAndExpand(clienteTemp.getId()).toUri();
+        return ResponseEntity.created(uri).body(clienteRespository.save(clienteTemp));
     }
 
 }
