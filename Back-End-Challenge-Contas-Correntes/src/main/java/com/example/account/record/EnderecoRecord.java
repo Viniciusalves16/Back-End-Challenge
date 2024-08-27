@@ -1,4 +1,4 @@
-package com.example.account.controller;
+package com.example.account.record;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

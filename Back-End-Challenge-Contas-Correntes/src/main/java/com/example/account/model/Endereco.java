@@ -1,6 +1,6 @@
 package com.example.account.model;
 
-import com.example.account.controller.EnderecoRecord;
+import com.example.account.record.EnderecoRecord;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

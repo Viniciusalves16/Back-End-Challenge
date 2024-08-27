@@ -1,7 +1,9 @@
 package com.example.account.controller;
 
 import com.example.account.model.Cliente;
+import com.example.account.record.ClienteRecord;
 import com.example.account.repository.ClienteRespository;
+import com.example.account.service.ClienteService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,17 +17,14 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class ClienteCadastroController {
 
     @Autowired
-    private ClienteRespository clienteRespository;
+    private ClienteService clienteService;
 
     @PostMapping("/cliente")
     @Transactional
-    public ResponseEntity cadastroCliente( @RequestBody @Valid ClienteRecord clienteRecord,
-                                          UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity cadastroCliente(@RequestBody @Valid ClienteRecord clienteRecord, UriComponentsBuilder uriComponentsBuilder) {
 
         var clienteTemp = new Cliente(clienteRecord);
-
-        var uri = uriComponentsBuilder.path("/cliente").buildAndExpand(clienteTemp.getId()).toUri();
-        return ResponseEntity.created(uri).body(clienteRespository.save(clienteTemp));
+        return clienteService.verificaCadastroUnico(clienteTemp, uriComponentsBuilder, clienteRecord);
     }
 
 }
