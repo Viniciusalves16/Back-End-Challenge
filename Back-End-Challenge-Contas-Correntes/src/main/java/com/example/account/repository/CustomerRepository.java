@@ -1,9 +1,9 @@
 package com.example.account.repository;
 
-import com.example.account.model.Cliente;
+import com.example.account.model.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ClienteRespository  extends JpaRepository<Cliente, Long> {
+public interface CustomerRepository extends JpaRepository<Customer, Long> {
 }

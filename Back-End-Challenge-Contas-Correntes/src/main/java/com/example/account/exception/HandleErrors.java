@@ -1,8 +1,11 @@
 package com.example.account.exception;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.PersistenceException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.naming.AuthenticationException;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,8 +25,14 @@ import java.util.Map;
 @RestControllerAdvice
 public class HandleErrors {
 
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity handleDataIntegrityViolationException(DataIntegrityViolationException e) {
+        return ResponseEntity.badRequest().body( "Não foi possível realizar o cadastro, documento ja cadastrado");
+    }
+
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity handleErrors(EntityNotFoundException entityNotFoundException) {
+    public ResponseEntity handleErrorsEntity(EntityNotFoundException entityNotFoundException) {
         return new ResponseEntity(entityNotFoundException.getMessage(), HttpStatus.NOT_FOUND);
     }
 

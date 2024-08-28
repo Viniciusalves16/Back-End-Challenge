@@ -7,16 +7,16 @@ import java.util.List;
 
 @Data
 @Entity(name = "Contas")
-public class Conta {
+public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String agencia;
-    private double saldo;
+    private String agency;
+    private double balance;
     private String status;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Cliente> cliente;
+    private List<Customer> customer;
 
 }

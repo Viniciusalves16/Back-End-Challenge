@@ -1,12 +1,11 @@
 package com.example.account.model;
 
-import com.example.account.component.ValidacaoDocumento;
-import com.example.account.record.ClienteRecord;
+import com.example.account.component.ValidateDocumentTypeComponent;
+import com.example.account.record.CustomerRecord;
 import com.example.account.repository.CnpjGroup;
 import com.example.account.repository.CpfGroup;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
-import jakarta.validation.GroupSequence;
 import lombok.Data;
 import org.hibernate.validator.constraints.br.CNPJ;
 import org.hibernate.validator.constraints.br.CPF;
@@ -16,31 +15,35 @@ import java.util.List;
 
 @Data
 @Entity(name = "Clientes")
-@GroupSequenceProvider(ValidacaoDocumento.class)
-public class Cliente {
+@GroupSequenceProvider(ValidateDocumentTypeComponent.class)
+public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long id;
-    private String nome;
-    private String tipo;
+    private String name;
+    private String type;
+
     @CPF(groups = CpfGroup.class)
     @CNPJ(groups = CnpjGroup.class)
+    @Column(unique = true)
     private String cpfCnpj;
-    private String senha;
+
+    private String password;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private Endereco endereco;
+    private Address address;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<Conta> conta;
+    private List<Account> account;
 
-    public Cliente(ClienteRecord clienteRecord) {
-        this.nome = clienteRecord.nome();
-        this.tipo = clienteRecord.tipo();
-        this.cpfCnpj = clienteRecord.cpfCnpj();
-        this.senha = clienteRecord.senha();
-        this.endereco = new Endereco(clienteRecord.endereco());
+    public Customer(CustomerRecord customerRecord) {
+        this.name = customerRecord.name();
+        this.type = customerRecord.type();
+        this.cpfCnpj = customerRecord.cpfCnpj();
+        this.password = customerRecord.password();
+        this.address = new Address(customerRecord.address());
     }
 }
