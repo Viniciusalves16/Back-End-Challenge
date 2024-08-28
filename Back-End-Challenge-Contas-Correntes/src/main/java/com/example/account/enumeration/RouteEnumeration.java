@@ -3,7 +3,7 @@ package com.example.account.enumeration;
 
 public enum RouteEnumeration {
 
-    CADASTRO("direct:postCadastro");
+    REGISTRATION("direct:postRegistration");
 
     private String  id;
 
