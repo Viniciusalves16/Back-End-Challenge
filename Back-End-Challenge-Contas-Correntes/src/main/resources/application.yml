@@ -14,3 +14,10 @@ spring:
     console:
       enabled: true
       path: /contas-correntes
+logging:
+  level:
+    org:
+      apache:
+        camel: DEBUG
+    springframework:
+      web: DEBUG
