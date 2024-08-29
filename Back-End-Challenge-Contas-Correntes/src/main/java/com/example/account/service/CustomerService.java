@@ -14,7 +14,7 @@ public class CustomerService {
     @Autowired
     CustomerRepository customerRepository;
 
-    public ResponseEntity realizaCadastro(Customer customer, UriComponentsBuilder uriComponentsBuilder, CustomerRecord customerRecord) {
+    public ResponseEntity sendRegistration(Customer customer, UriComponentsBuilder uriComponentsBuilder, CustomerRecord customerRecord) {
 
         var clienteTemp = customerRepository.save(customer);
         var uri = uriComponentsBuilder.path("/cliente").buildAndExpand(clienteTemp.getId()).toUri();
