@@ -1,12 +1,11 @@
-package com.example.account.controller;
+package com.example.account.record;
 
-import com.example.account.record.CustomerRecord;
 import jakarta.validation.constraints.NotBlank;
 
 
 public record AccountRecord(@NotBlank String agency,
                             @NotBlank Double balance,
-                            @NotBlank
+                            @NotBlank long accountNumber,
                             @NotBlank String status,
                             @NotBlank CustomerRecord customerRecord) {
 }

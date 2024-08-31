@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Embeddable
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -20,6 +20,9 @@ public class Address {
     private String cidade;
     private String rua;
     private long numero;
+
+    @OneToOne
+    private Customer customer;
 
     public Address(AddressRecord addressRecord) {
         this.cep = addressRecord.zipCode();

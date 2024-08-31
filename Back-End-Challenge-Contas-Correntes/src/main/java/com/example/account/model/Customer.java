@@ -6,13 +6,17 @@ import com.example.account.repository.CnpjGroup;
 import com.example.account.repository.CpfGroup;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CNPJ;
 import org.hibernate.validator.constraints.br.CPF;
 import org.hibernate.validator.group.GroupSequenceProvider;
 
 import java.util.List;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 @Entity(name = "Clientes")
 @GroupSequenceProvider(ValidateDocumentTypeComponent.class)
@@ -32,7 +36,7 @@ public class Customer {
 
     private String password;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Address address;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

@@ -1,6 +1,6 @@
 package com.example.account.model;
 
-import com.example.account.controller.AccountRecord;
+import com.example.account.record.AccountRecord;
 import jakarta.persistence.*;
 import lombok.Data;
 

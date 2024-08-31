@@ -1,6 +1,6 @@
 package com.example.account.service;
 
-import com.example.account.controller.AccountRecord;
+import com.example.account.record.AccountRecord;
 import com.example.account.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

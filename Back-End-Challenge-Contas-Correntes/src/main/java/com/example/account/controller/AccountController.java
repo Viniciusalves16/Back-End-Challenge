@@ -1,6 +1,7 @@
 package com.example.account.controller;
 
 import com.example.account.model.Account;
+import com.example.account.record.AccountRecord;
 import com.example.account.service.AccountService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
