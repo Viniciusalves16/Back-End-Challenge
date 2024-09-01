@@ -1,6 +1,7 @@
 package com.example.account.model;
 
 import com.example.account.record.AddressRecord;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,6 +15,7 @@ import lombok.NoArgsConstructor;
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long id;
     private long cep;
     private String estado;
@@ -22,6 +24,7 @@ public class Address {
     private long numero;
 
     @OneToOne
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Customer customer;
 
     public Address(AddressRecord addressRecord) {

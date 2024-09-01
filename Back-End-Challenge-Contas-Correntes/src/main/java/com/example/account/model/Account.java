@@ -22,6 +22,7 @@ public class Account {
     private String status;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+
     private List<Customer> customer;
 
     public Account(AccountRecord accountRecord) {

@@ -13,6 +13,7 @@ import org.hibernate.validator.constraints.br.CNPJ;
 import org.hibernate.validator.constraints.br.CPF;
 import org.hibernate.validator.group.GroupSequenceProvider;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -36,11 +37,12 @@ public class Customer {
 
     private String password;
 
-    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Address address;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<Account> account;
 
     public Customer(CustomerRecord customerRecord) {
