@@ -21,15 +21,12 @@ public class Account {
     private double balance;
     private String status;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-
-    private List<Customer> customer;
+    @ManyToOne
+    private Customer customer;
 
     public Account(AccountRecord accountRecord) {
         this.agency = accountRecord.agency();
-        this.balance = accountRecord.balance();
-        this.status = accountRecord.status();
-        this.customer = (List<Customer>) new Customer(accountRecord.customerRecord());
-
+        this.accountNumber = accountRecord.accountNumber();
+        this.customer = new Customer(accountRecord.customerRecord());
     }
 }

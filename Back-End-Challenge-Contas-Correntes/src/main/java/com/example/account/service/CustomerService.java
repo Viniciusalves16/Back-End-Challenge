@@ -6,7 +6,7 @@ import com.example.account.repository.CustomerRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 
-import org.springframework.beans.BeanUtils;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -51,7 +51,7 @@ public class CustomerService {
     }
 
 
-    public ResponseEntity findByRegisterSingle(Long id) {
+    public ResponseEntity findByRegisterSingle(@NotBlank Double id) {
         var findRegister = customerRepository.findById(id);
         if (findRegister.isEmpty()) {
             throw new EntityNotFoundException("Register Not Found");
@@ -59,10 +59,14 @@ public class CustomerService {
         return ResponseEntity.status(HttpStatus.OK).body(findRegister);
     }
 
-    public ResponseEntity updateRegisterCustomer(Long id, CustomerRecord customerRecord) {
-        Optional customer = customerRepository.findById(id);
+    public ResponseEntity updateRegisterCustomer(CustomerRecord customerRecord) {
+        Customer customerTemp = (Customer) customerRepository.findBycpfCnpj(customerRecord.cpfCnpj());
+        if (customerTemp != null) {
+            return ResponseEntity.ok(customerRepository.save(customerTemp));
+        } else {
+            throw new EntityNotFoundException("register Not Found");
+        }
 
-    //todo: avaliar melhor maneira de realizar um updateao
-        return null;
+
     }
 }

@@ -52,4 +52,5 @@ public class Customer {
         this.password = customerRecord.password();
         this.address = new Address(customerRecord.address());
     }
+
 }
