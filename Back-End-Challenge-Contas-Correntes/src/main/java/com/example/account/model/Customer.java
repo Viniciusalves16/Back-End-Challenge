@@ -1,6 +1,7 @@
 package com.example.account.model;
 
 import com.example.account.component.ValidateDocumentTypeComponent;
+import com.example.account.record.CustomerOpening;
 import com.example.account.record.CustomerRecord;
 import com.example.account.repository.CnpjGroup;
 import com.example.account.repository.CpfGroup;
@@ -13,7 +14,6 @@ import org.hibernate.validator.constraints.br.CNPJ;
 import org.hibernate.validator.constraints.br.CPF;
 import org.hibernate.validator.group.GroupSequenceProvider;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -32,7 +32,7 @@ public class Customer {
 
     @CPF(groups = CpfGroup.class)
     @CNPJ(groups = CnpjGroup.class)
-    @Column(unique = true)
+    @Column(name = "cpfCnpj", unique = true)
     private String cpfCnpj;
 
     private String password;
@@ -53,4 +53,9 @@ public class Customer {
         this.address = new Address(customerRecord.address());
     }
 
+    public Customer(CustomerOpening customerOpening) {
+        this.id = customerOpening.id();
+        this.name = customerOpening.name();
+        this.password = customerOpening.password();
+    }
 }

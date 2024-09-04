@@ -1,6 +1,7 @@
 package com.example.account.service;
 
-import com.example.account.controller.CustomerRegistrationController;
+
+import com.example.account.component.CheckIdentityComponent;
 import com.example.account.model.Account;
 import com.example.account.record.AccountRecord;
 import com.example.account.repository.AccountRepository;
@@ -8,6 +9,9 @@ import com.example.account.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import javax.security.auth.login.AccountNotFoundException;
 
 @Service
 public class AccountService {
@@ -16,12 +20,18 @@ public class AccountService {
     private AccountRepository accountRepository;
 
     @Autowired
-    private CustomerRegistrationController controller;
+    CheckIdentityComponent component;
 
-    public ResponseEntity createAccountType(AccountRecord accountRecord) {
+    public ResponseEntity createAccountType(AccountRecord accountRecord, UriComponentsBuilder uriComponentsBuilder) throws AccountNotFoundException {
 
+        if (component.verifyIdentity(accountRecord.customerOpening().cpfCnpj())) {
+            var uri = uriComponentsBuilder.path("/account").buildAndExpand(accountRecord.customerOpening().cpfCnpj()).toUri();
+            var account = new Account(accountRecord);
+            return ResponseEntity.created(uri).body(accountRepository.save(account));
+        } else {
+            throw new AccountNotFoundException("No account found for CPF/CNPJ, " + "It is mandatory to create your registration first : " + accountRecord.customerOpening().cpfCnpj());
+        }
 
-        return null;
 
     }
 

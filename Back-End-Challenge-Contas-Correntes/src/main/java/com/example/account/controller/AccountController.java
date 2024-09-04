@@ -1,6 +1,6 @@
 package com.example.account.controller;
 
-import com.example.account.model.Account;
+import com.example.account.component.CheckIdentityComponent;
 import com.example.account.record.AccountRecord;
 import com.example.account.service.AccountService;
 import jakarta.transaction.Transactional;
@@ -10,6 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import javax.security.auth.login.AccountNotFoundException;
 
 @RestController
 public class AccountController {
@@ -17,12 +20,10 @@ public class AccountController {
     @Autowired
     private AccountService accountService;
 
+
     @PostMapping("/account")
     @Transactional
-    public ResponseEntity accountOpening(@RequestBody @Valid AccountRecord accountRecord) {
-        accountService.createAccountType(accountRecord);
-
-
-        return null;
+    public ResponseEntity accountOpening(@RequestBody @Valid AccountRecord accountRecord, UriComponentsBuilder uriComponentsBuilder) throws AccountNotFoundException {
+        return accountService.createAccountType(accountRecord, uriComponentsBuilder);
     }
 }
