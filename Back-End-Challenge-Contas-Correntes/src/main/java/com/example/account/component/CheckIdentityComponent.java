@@ -11,12 +11,13 @@ public class CheckIdentityComponent {
     @Autowired
     private CustomerRepository customerRepository;
 
-    public boolean verifyIdentity(String cpfCnpj) {
-        var tempDoc = customerRepository.existsByCpfCnpj(cpfCnpj);
-        if (!tempDoc.isEmpty()) {
-            return true;
+    public Long verifyIdentity(String cpfCnpj) {
+        Long tempDoc = customerRepository.existsByCpfCnpj(cpfCnpj);
+
+        if (!tempDoc.equals(null)) {
+            return tempDoc;
         }
-        return false;
+        return null;
 
     }
 }

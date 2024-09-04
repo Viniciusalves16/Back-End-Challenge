@@ -18,12 +18,12 @@ public class Account {
     private double balance;
     private String status;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Customer customer;
 
-    public Account(AccountRecord accountRecord) {
+    public Account(AccountRecord accountRecord, Long docTemp) {
         this.agency = accountRecord.agency();
-        this.customer = new Customer(accountRecord.customerOpening());
+        this.customer = new Customer(accountRecord.customerOpening(), docTemp);
         this.status = "Active";
     }
 }

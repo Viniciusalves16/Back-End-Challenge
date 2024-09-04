@@ -15,5 +15,5 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     Optional<Customer> findById(Double id);
 
     @Query(value = "SELECT id FROM Clientes WHERE cpf_Cnpj = :cpfCnpj", nativeQuery = true)
-    String existsByCpfCnpj(@Param("cpfCnpj") String cpfCnpj);
+    Long existsByCpfCnpj(@Param("cpfCnpj") String cpfCnpj);
 }

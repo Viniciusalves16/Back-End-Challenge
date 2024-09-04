@@ -23,10 +23,10 @@ public class AccountService {
     CheckIdentityComponent component;
 
     public ResponseEntity createAccountType(AccountRecord accountRecord, UriComponentsBuilder uriComponentsBuilder) throws AccountNotFoundException {
-
-        if (component.verifyIdentity(accountRecord.customerOpening().cpfCnpj())) {
+        Long docTemp = component.verifyIdentity(accountRecord.customerOpening().cpfCnpj());
+        if (!docTemp.equals(null)) {
             var uri = uriComponentsBuilder.path("/account").buildAndExpand(accountRecord.customerOpening().cpfCnpj()).toUri();
-            var account = new Account(accountRecord);
+            var account = new Account(accountRecord,docTemp);
             return ResponseEntity.created(uri).body(accountRepository.save(account));
         } else {
             throw new AccountNotFoundException("No account found for CPF/CNPJ, " + "It is mandatory to create your registration first : " + accountRecord.customerOpening().cpfCnpj());
