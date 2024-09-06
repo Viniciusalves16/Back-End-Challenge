@@ -53,11 +53,5 @@ public class Customer {
         this.address = new Address(customerRecord.address());
     }
 
-    public Customer(CustomerOpening customerOpening, Long docTemp) {
-        this.id = docTemp;
-        this.name = customerOpening.name();
-        this.password = customerOpening.password();
-    }
-
 
 }

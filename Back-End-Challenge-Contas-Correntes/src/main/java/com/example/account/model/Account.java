@@ -11,7 +11,7 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true)
-    private Double accountNumber;
+    private Integer accountNumber;
 
     @Column(unique = true)
     private String agency;
@@ -21,9 +21,9 @@ public class Account {
     @ManyToOne(cascade = CascadeType.ALL)
     private Customer customer;
 
-    public Account(AccountRecord accountRecord, Long docTemp) {
+    public Account(AccountRecord accountRecord, Customer customer) {
         this.agency = accountRecord.agency();
-        this.customer = new Customer(accountRecord.customerOpening(), docTemp);
+        this.customer = customer;
         this.status = "Active";
     }
 }

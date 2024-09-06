@@ -1,6 +1,5 @@
 package com.example.account.controller;
 
-import com.example.account.component.CheckIdentityComponent;
 import com.example.account.record.AccountRecord;
 import com.example.account.service.AccountService;
 import jakarta.transaction.Transactional;
@@ -20,7 +19,7 @@ public class AccountController {
     @Autowired
     private AccountService accountService;
 
-
+    // Método que realiza a abertura da conta
     @PostMapping("/account")
     @Transactional
     public ResponseEntity accountOpening(@RequestBody @Valid AccountRecord accountRecord, UriComponentsBuilder uriComponentsBuilder) throws AccountNotFoundException {

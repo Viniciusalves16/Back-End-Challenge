@@ -18,7 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.Optional;
 
 @RestController
-public class CustomerRegistrationController {
+public class CustomerController {
 
     @Autowired
     private CustomerService customerService;

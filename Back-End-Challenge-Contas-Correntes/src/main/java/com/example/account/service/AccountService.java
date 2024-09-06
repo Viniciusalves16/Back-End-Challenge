@@ -1,11 +1,14 @@
 package com.example.account.service;
 
 
-import com.example.account.component.CheckIdentityComponent;
+import com.example.account.exception.AccountCreationException;
 import com.example.account.model.Account;
+import com.example.account.model.Customer;
 import com.example.account.record.AccountRecord;
 import com.example.account.repository.AccountRepository;
 
+import com.example.account.repository.CustomerRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,20 +23,33 @@ public class AccountService {
     private AccountRepository accountRepository;
 
     @Autowired
-    CheckIdentityComponent component;
+    private CustomerRepository customerRepository;
+
 
     public ResponseEntity createAccountType(AccountRecord accountRecord, UriComponentsBuilder uriComponentsBuilder) throws AccountNotFoundException {
-        Long docTemp = component.verifyIdentity(accountRecord.customerOpening().cpfCnpj());
-        if (!docTemp.equals(null)) {
-            var uri = uriComponentsBuilder.path("/account").buildAndExpand(accountRecord.customerOpening().cpfCnpj()).toUri();
-            var account = new Account(accountRecord,docTemp);
-            return ResponseEntity.created(uri).body(accountRepository.save(account));
-        } else {
-            throw new AccountNotFoundException("No account found for CPF/CNPJ, " + "It is mandatory to create your registration first : " + accountRecord.customerOpening().cpfCnpj());
+
+        //Regra de negócio que realiza a abertura da conta
+        try {
+            Long tempDoc = customerRepository.existsByCpfCnpj(accountRecord.customerOpening().cpfCnpj());// Verifica se o cliente ja possui cadastro
+            if (tempDoc == null) {
+                throw new AccountCreationException("No customer found for the given CPF/CNPJ.");
+            }
+            Customer customer = customerRepository.findById(tempDoc) // Busca o id do cliente que é a chave primária para que possa ser aberta a conta vinculada a ele
+                    .orElseThrow(() -> new EntityNotFoundException("Customer not found"));
+            Account newAccount = new Account(accountRecord, customer);
+            accountRepository.save(newAccount);
+            return ResponseEntity.ok().body(newAccount);
+        } catch (EntityNotFoundException e) {
+            throw new AccountCreationException("Account opening not carried out, registration must be carried out first", e);
         }
 
 
+
     }
-
-
 }
+
+
+
+
+
+
