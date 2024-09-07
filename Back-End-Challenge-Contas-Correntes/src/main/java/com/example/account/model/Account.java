@@ -29,7 +29,7 @@ public class Account {
     }
 
     public Account(DepositValeuRecord depositValeuRecord) {
-        this.accountNumber = depositValeuRecord.accountNumber();
+        this.balance = depositValeuRecord.value();
 
     }
 

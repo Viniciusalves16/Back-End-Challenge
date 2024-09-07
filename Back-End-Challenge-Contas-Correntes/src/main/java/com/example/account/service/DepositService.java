@@ -6,6 +6,7 @@ import com.example.account.record.DepositValeuRecord;
 import com.example.account.repository.AccountRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -24,10 +25,18 @@ public class DepositService {
                                       UriComponentsBuilder uriComponentsBuilder) {
 
 
-       Account account1 =  accountRepository.findById(Long.valueOf(depositValeuRecord.accountNumber())).orElseThrow(() ->
-                new EntityNotFoundException("Account not found, please try again!"));
+        Account accountDeposit = accountRepository.findById(Long.valueOf(depositValeuRecord.accountNumber())).orElseThrow(() ->
+                new AccountException("Account not found, please try again!"));
 
-        return null;
+        if (accountDeposit.getStatus().equals("Active")) {
+            accountDeposit.setBalance(accountDeposit.getBalance() + depositValeuRecord.value());
+            accountDeposit = accountRepository.save(accountDeposit);
+        } else {
+            throw new AccountException("Account not Active,Transfer not carried out.");
+        }
+
+
+        return ResponseEntity.status(HttpStatus.OK).body(accountDeposit);
 
     }
 }
