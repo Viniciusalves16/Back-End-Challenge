@@ -1,6 +1,7 @@
 package com.example.account.model;
 
 import com.example.account.record.AccountRecord;
+import com.example.account.record.DepositValeuRecord;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -26,4 +27,13 @@ public class Account {
         this.customer = customer;
         this.status = "Active";
     }
+
+    public Account(DepositValeuRecord depositValeuRecord) {
+        this.accountNumber = depositValeuRecord.accountNumber();
+
+    }
+
+    public Account() {
+    }
+
 }
