@@ -2,7 +2,6 @@ package com.example.account.controller;
 
 import com.example.account.model.Account;
 import com.example.account.record.DepositValeuRecord;
-import com.example.account.repository.AccountRepository;
 
 import com.example.account.service.DepositService;
 import jakarta.transaction.Transactional;
@@ -26,8 +25,8 @@ public class DepositController {
     @Transactional
     public ResponseEntity<Account> accountDeposit(@RequestBody @Valid DepositValeuRecord depositValeuRecord,
                                                   Account account, UriComponentsBuilder uriComponentsBuilder) {
-        depositService.depositRule(depositValeuRecord, account,uriComponentsBuilder);
 
-        return null;
+
+        return depositService.depositRule(depositValeuRecord, account,uriComponentsBuilder);
     }
 }

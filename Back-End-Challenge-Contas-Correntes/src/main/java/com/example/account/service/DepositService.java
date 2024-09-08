@@ -36,7 +36,7 @@ public class DepositService {
         }
 
 
-        return ResponseEntity.status(HttpStatus.OK).body(accountDeposit);
+        return ResponseEntity.status(HttpStatus.OK).body("Deposit made!");
 
     }
 }
