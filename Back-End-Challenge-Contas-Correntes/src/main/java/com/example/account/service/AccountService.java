@@ -15,6 +15,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.security.auth.login.AccountNotFoundException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AccountService {
@@ -46,6 +49,11 @@ public class AccountService {
             return ResponseEntity.badRequest().body(null);
         }
 
+    }
+
+    public ResponseEntity<List<Account>> listAccountsFindById(Long id) {
+        List<Account> accountList = accountRepository.findByCustomerId(id);
+        return ResponseEntity.ok().body(accountList);
     }
 }
 
