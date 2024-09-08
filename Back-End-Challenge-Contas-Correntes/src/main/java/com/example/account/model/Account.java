@@ -14,12 +14,11 @@ public class Account {
     @Column(unique = true)
     private Integer accountNumber;
 
-    @Column(unique = true)
     private String agency;
     private double balance;
     private String status;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
