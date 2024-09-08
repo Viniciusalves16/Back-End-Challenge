@@ -20,9 +20,10 @@ public class Account {
     private String status;
 
     @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    public Account(AccountRecord accountRecord, Customer customer) {
+    public Account(AccountRecord accountRecord) {
         this.agency = accountRecord.agency();
         this.customer = customer;
         this.status = "Active";

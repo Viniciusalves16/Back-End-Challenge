@@ -26,25 +26,25 @@ public class AccountService {
     private CustomerRepository customerRepository;
 
 
-    public ResponseEntity createAccountType(AccountRecord accountRecord,
-                                            UriComponentsBuilder uriComponentsBuilder) throws AccountNotFoundException {
+    public ResponseEntity createAccountType(AccountRecord accountRecord, UriComponentsBuilder uriComponentsBuilder) throws AccountNotFoundException {
 
-        //Regra de negócio que realiza a abertura da conta
         try {
-            Long tempDoc = customerRepository.existsByCpfCnpj(accountRecord.customerOpening().cpfCnpj());// Verifica se o cliente ja possui cadastro
-            if (tempDoc == null) {
+            // Verifica se o cliente já possui cadastro
+            Long customerId = customerRepository.existsByCpfCnpj(accountRecord.customerOpening().cpfCnpj());
+
+            if (customerId == null) {
                 throw new AccountException("No customer found for the given CPF/CNPJ.");
             }
-            Customer customer = customerRepository.findById(tempDoc) // Busca o id do cliente que é a chave primária para que possa ser aberta a conta vinculada a ele
-                    .orElseThrow(() -> new EntityNotFoundException("Customer not found"));
-            Account newAccount = new Account(accountRecord, customer);
+
+            Account newAccount = new Account(accountRecord);
             accountRepository.save(newAccount);
             return ResponseEntity.ok().body(newAccount);
+
         } catch (EntityNotFoundException e) {
             throw new AccountException("Account opening not carried out, registration must be carried out first", e);
+        } catch (AccountException e) {
+            return ResponseEntity.badRequest().body(null);
         }
-
-
 
     }
 }
