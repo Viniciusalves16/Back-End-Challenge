@@ -27,6 +27,7 @@ public class CustomerController {
     @Autowired
     CustomerRepository customerRepository;
 
+    //Cadastro de clientes
     @PostMapping("/customers")
     @Transactional
     public ResponseEntity cadastroCliente(@RequestBody @Valid CustomerRecord customerRecord,
@@ -35,18 +36,19 @@ public class CustomerController {
         return customerService.sendRegistration(clienteTemp, uriComponentsBuilder, customerRecord);
     }
 
-
+    // Lista de clientes
     @GetMapping("/customers")
     public ResponseEntity findAllCustomerRegister() {
         return customerService.findAllRegister();
     }
 
+    // Busca cliente por id
     @GetMapping("/customers/{customer_id}")
     public ResponseEntity findSingleCustomer(@PathVariable(value = "customer_id") @NotBlank Double id) {
         return customerService.findByRegisterSingle(id);
 
     }
-
+    // Delete de cadastro
     @DeleteMapping("/customers/{customer_id}")
     public ResponseEntity deleteCustomer(@PathVariable(value = "customer_id") Long id) {
         Optional<Customer> product = customerRepository.findById(id);

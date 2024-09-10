@@ -29,11 +29,11 @@ public class Account {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    public Account(AccountRecord accountRecord) {
+    public Account(AccountRecord accountRecord, Customer existingCustomer) {
 
         this.agency = accountRecord.agency();
         this.accountNumber = GenerateAccountNumberComponent.randomAccountNumber(1l);
-        this.customer = customer;
+        this.customer = existingCustomer;
         this.status = "Active";
     }
 

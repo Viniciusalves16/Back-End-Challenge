@@ -1,5 +1,6 @@
 package com.example.account.controller;
 
+import com.example.account.model.Customer;
 import com.example.account.record.AccountRecord;
 import com.example.account.service.AccountService;
 import jakarta.transaction.Transactional;
@@ -20,9 +21,14 @@ public class AccountController {
     // Método que realiza a abertura da conta
     @PostMapping("/account")
     @Transactional
-    public ResponseEntity accountOpening(@RequestBody @Valid AccountRecord accountRecord, UriComponentsBuilder uriComponentsBuilder) throws AccountNotFoundException {
-        return accountService.createAccountType(accountRecord, uriComponentsBuilder);
+    public ResponseEntity accountOpening(@RequestBody @Valid AccountRecord accountRecord, Customer customer,  UriComponentsBuilder uriComponentsBuilder) throws AccountNotFoundException {
+        return accountService.createAccountType(accountRecord, customer, uriComponentsBuilder);
     }
 
+
+    @GetMapping("account")
+    public ResponseEntity findAllAccount() {
+        return accountService.findAllAccount();
+    }
 
 }

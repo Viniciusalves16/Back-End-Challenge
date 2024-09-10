@@ -62,15 +62,6 @@ public class CustomerService {
         return ResponseEntity.status(HttpStatus.OK).body(findRegister);
     }
 
-    //Método que realiza a alteração do casastro do cliente
-    public ResponseEntity updateRegisterCustomer(CustomerRecord customerRecord) {
-        Customer customerTemp = (Customer) customerRepository.findBycpfCnpj(customerRecord.cpfCnpj());
-        if (customerTemp != null) {
-            return ResponseEntity.ok(customerRepository.save(customerTemp));
-        } else {
-            throw new EntityNotFoundException("register Not Found");
-        }
 
 
-    }
 }
