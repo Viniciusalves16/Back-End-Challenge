@@ -24,8 +24,5 @@ public class AccountController {
         return accountService.createAccountType(accountRecord, uriComponentsBuilder);
     }
 
-    @GetMapping("/account/{account_id}")
-    public ResponseEntity listOfAccountsSingleClient(@PathVariable(value = "account_id") Long id) {
-        return accountService.listAccountsFindById(id);
-    }
+
 }

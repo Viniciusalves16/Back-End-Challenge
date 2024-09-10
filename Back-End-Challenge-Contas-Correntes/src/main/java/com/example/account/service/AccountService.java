@@ -51,10 +51,7 @@ public class AccountService {
 
     }
 
-    public ResponseEntity<List<Account>> listAccountsFindById(Long id) {
-        List<Account> accountList = accountRepository.findByCustomerId(id);
-        return ResponseEntity.ok().body(accountList);
-    }
+
 }
 
 

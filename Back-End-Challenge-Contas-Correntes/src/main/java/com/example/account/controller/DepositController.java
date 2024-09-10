@@ -23,10 +23,10 @@ public class DepositController {
 
     @PostMapping("/deposit")
     @Transactional
-    public ResponseEntity<Account> accountDeposit(@RequestBody @Valid DepositValeuRecord depositValeuRecord,
-                                                  Account account, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<String> accountDeposit(@RequestBody @Valid DepositValeuRecord depositValeuRecord,
+                                                 Account account, UriComponentsBuilder uriComponentsBuilder) {
 
 
-        return depositService.depositRule(depositValeuRecord, account,uriComponentsBuilder);
+        return depositService.depositFunds(depositValeuRecord);
     }
 }

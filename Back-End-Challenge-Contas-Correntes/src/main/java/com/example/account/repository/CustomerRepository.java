@@ -1,5 +1,6 @@
 package com.example.account.repository;
 
+import com.example.account.model.Account;
 import com.example.account.model.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,4 +17,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
     @Query(value = "SELECT id FROM Clientes WHERE cpf_Cnpj = :cpfCnpj", nativeQuery = true)
     Long existsByCpfCnpj(@Param("cpfCnpj") String cpfCnpj);
+
+
+
 }

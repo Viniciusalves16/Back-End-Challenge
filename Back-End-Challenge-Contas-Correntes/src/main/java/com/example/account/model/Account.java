@@ -1,6 +1,7 @@
 package com.example.account.model;
 
-import com.example.account.component.GenerateAccountNumber;
+
+import com.example.account.component.GenerateAccountNumberComponent;
 import com.example.account.record.AccountRecord;
 import com.example.account.record.DepositValeuRecord;
 import jakarta.persistence.*;
@@ -18,7 +19,7 @@ public class Account {
     private Integer id;
 
     @Column(unique = true)
-    private Integer accountNumber;
+    private Long accountNumber;
 
     private String agency;
     private double balance;
@@ -31,7 +32,7 @@ public class Account {
     public Account(AccountRecord accountRecord) {
 
         this.agency = accountRecord.agency();
-        this.accountNumber = GenerateAccountNumber.generateValueAccountNumber(1);
+        this.accountNumber = GenerateAccountNumberComponent.randomAccountNumber(1l);
         this.customer = customer;
         this.status = "Active";
     }
