@@ -7,19 +7,18 @@ import lombok.Data;
 @Data
 public class TransferRequestDto {
 
+    @NotNull
+    private AccountTransferDto<Long> originAccount;
 
     @NotNull
-    private AccountTransferDto<Long> origin;
-
-    @NotNull
-    private AccountTransferDto<Long> destination;
+    private AccountTransferDto<Long> destinationAccount;
 
     public TransferRequestDto() {
     }
 
-    public TransferRequestDto(AccountTransferDto<Long> origin, AccountTransferDto<Long> destination) {
-        this.origin = origin;
-        this.destination = destination;
+    public TransferRequestDto(AccountTransferDto<Long> originAccount, AccountTransferDto<Long> destinationAccount) {
+        this.originAccount = originAccount;
+        this.destinationAccount = destinationAccount;
     }
 
 }
