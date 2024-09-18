@@ -15,18 +15,20 @@ public class VerifyBalanceFoTransfer {
     @Autowired
     private TransferRepository transferRepository;
 
-    public Boolean verifyBalance(boolean accountExistsAndActive, @Valid TransferRequestDto transferRequestDto) {
+    public boolean verifyBalance(boolean accountExistsAndActive, @Valid TransferRequestDto transferRequestDto) {
 
-        if (accountExistsAndActive == true) {
-            BigDecimal balance = transferRepository.searchBalance(transferRequestDto.getOriginAccount().getAccountNumber());
-            if (balance.compareTo(BigDecimal.valueOf(transferRequestDto.getOriginAccount().getAmount())) >= 0) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false; // Return false if the account doesn't exist or is inactive
-
+        if (!accountExistsAndActive) {
+            return false; // Se a conta não existe ou está inativa
         }
+
+        // Verificar saldo da conta de origem
+        BigDecimal balance = transferRepository.searchBalance(transferRequestDto.getOriginAccount().getAccountNumber());
+        if (balance == null) {
+            return false; // Conta não encontrada
+        }
+
+        // Verificar se o saldo é suficiente para a transferência
+        BigDecimal amount = BigDecimal.valueOf(transferRequestDto.getOriginAccount().getAmount());
+        return balance.compareTo(amount) >= 0;
     }
 }

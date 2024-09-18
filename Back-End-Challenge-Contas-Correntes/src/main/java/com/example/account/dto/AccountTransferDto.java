@@ -17,8 +17,7 @@ public class AccountTransferDto<T> {
     @NotNull
     private Long accountNumber;
 
-    @NotBlank
-    private String cpfCnpj;
+
 
     @NotNull
     private Double amount;
@@ -29,7 +28,6 @@ public class AccountTransferDto<T> {
         this.id = id;
         this.agency = agency;
         this.accountNumber = accountNumber;
-        this.cpfCnpj = cpfCnpj;
         this.amount = amount;
     }
 
