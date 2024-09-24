@@ -37,8 +37,8 @@ public class HandleErrors {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity HandleErrors400(MethodArgumentNotValidException ex) {//Exception que foi lançada
-        var erros = ex.getFieldErrors();// método que retorna cada um dos erros que aconteceram
+    public ResponseEntity HandleErrors400(MethodArgumentNotValidException ex) {
+        var erros = ex.getFieldErrors();
         return ResponseEntity.badRequest().body(erros.stream().map(DataErrors::new).toList());
     }
 

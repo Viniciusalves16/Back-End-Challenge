@@ -22,7 +22,6 @@ public class CustomerService {
     @Autowired
     CustomerRepository customerRepository;
 
-    //Método que realiza o cadastro do cliente
     public ResponseEntity sendRegistration(Customer customer, UriComponentsBuilder uriComponentsBuilder, CustomerRecord customerRecord) {
 
         var clienteTemp = customerRepository.save(customer);
@@ -31,7 +30,6 @@ public class CustomerService {
     }
 
 
-    // Método que realiza a exclusão do cadastro
     public ResponseEntity deleteRegister(Optional<Customer> customer) {
         if (customer.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Register not Found");
@@ -42,7 +40,6 @@ public class CustomerService {
     }
 
 
-    // Método que realiza a busca por uma lista de todos os cliente cadastrados
     public ResponseEntity findAllRegister() {
         var customer = customerRepository.findAll();
 
@@ -53,7 +50,6 @@ public class CustomerService {
 
     }
 
-    // Método que realiza a busca de um unico cliente através do id
     public ResponseEntity findByRegisterSingle(@NotBlank Double id) {
         var findRegister = customerRepository.findById(id);
         if (findRegister.isEmpty()) {

@@ -23,20 +23,4 @@ public class TransferRequestDto {
 
 }
 
-//exemplo de json
-//{
-//        "origin": {
-//        "id": 123,
-//        "agency": "Agency A",
-//        "accountNumber": 456789,
-//        "cpfCnpj": "12345678900",
-//        "amount": 1000.0
-//        },
-//        "destination": {
-//        "id": 456,
-//        "agency": "Agency B",
-//        "accountNumber": 987654,
-//        "cpfCnpj": "09876543211",
-//        "amount": 1000.0
-//        }
-//        }
+

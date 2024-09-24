@@ -1,6 +1,9 @@
 package com.example.account.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -17,12 +20,9 @@ public class AccountTransferDto<T> {
     @NotNull
     private Long accountNumber;
 
-
-
-    @NotNull
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Double amount;
 
-    // Construtores, getters e setters
 
     public AccountTransferDto(long id, String agency, Long accountNumber, String cpfCnpj, Double amount) {
         this.id = id;
@@ -33,5 +33,4 @@ public class AccountTransferDto<T> {
 
 
 
-    // Optionally, override equals and hashCode if needed
 }

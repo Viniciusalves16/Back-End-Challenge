@@ -18,7 +18,6 @@ public class AccountController {
     @Autowired
     private AccountService accountService;
 
-    // Método que realiza a abertura da conta
     @PostMapping("/account")
     @Transactional
     public ResponseEntity accountOpening(@RequestBody @Valid AccountRecord accountRecord, Customer customer,  UriComponentsBuilder uriComponentsBuilder) throws AccountNotFoundException {
