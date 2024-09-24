@@ -35,7 +35,6 @@ public class AccountService {
     public ResponseEntity createAccountType(AccountRecord accountRecord, Customer customer, UriComponentsBuilder uriComponentsBuilder) throws AccountNotFoundException {
 
         try {
-            // Verifica se o cliente já possui cadastro
             Customer existingCustomer = customerRepository.findById(accountRecord.customerOpening().id()).orElseThrow(() -> new CustomerNotFoundException("Cliente não encontrado com id: " + accountRecord.customerOpening().id()));
 
             Account newAccount = new Account(accountRecord, existingCustomer);
