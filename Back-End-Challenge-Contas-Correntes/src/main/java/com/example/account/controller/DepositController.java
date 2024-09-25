@@ -4,6 +4,9 @@ import com.example.account.model.Account;
 import com.example.account.record.DepositValeuRecord;
 
 import com.example.account.service.DepositService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
@@ -21,7 +24,12 @@ public class DepositController {
     @Autowired
     private DepositService depositService;
 
-
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Deposito Realizado!"),
+            @ApiResponse(responseCode = "400", description = "Não foi possível realizar a busca"),
+            @ApiResponse(responseCode = "500", description = "Conta não encontrada")
+    })
+    @Operation(description = "Realiza o depósito")
     @PostMapping("/deposit")
     @Transactional
     public ResponseEntity<String> accountDeposit(@RequestBody @Valid DepositValeuRecord depositValeuRecord,

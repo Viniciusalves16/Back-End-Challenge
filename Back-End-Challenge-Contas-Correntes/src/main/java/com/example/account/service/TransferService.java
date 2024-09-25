@@ -45,6 +45,7 @@ public class TransferService {
         BigDecimal destinationBalance = transferRepository.searchBalance(transferRequestDto.getDestinationAccount().getAccountNumber());
 
         try {
+
             transferRepository.updateBalance(transferRequestDto.getDestinationAccount().getAccountNumber(), destinationBalance.add(BigDecimal.valueOf(transferRequestDto.getOriginAccount().getAmount())));
 
         } catch (Exception e) {
