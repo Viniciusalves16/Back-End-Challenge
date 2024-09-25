@@ -24,12 +24,6 @@ public class DepositController {
     @Autowired
     private DepositService depositService;
 
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Deposito Realizado!"),
-            @ApiResponse(responseCode = "400", description = "Não foi possível realizar a busca"),
-            @ApiResponse(responseCode = "500", description = "Conta não encontrada")
-    })
-    @Operation(description = "Realiza o depósito")
     @PostMapping("/deposit")
     @Transactional
     public ResponseEntity<String> accountDeposit(@RequestBody @Valid DepositValeuRecord depositValeuRecord,

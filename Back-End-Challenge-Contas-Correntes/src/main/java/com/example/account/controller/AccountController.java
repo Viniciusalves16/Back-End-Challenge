@@ -20,23 +20,12 @@ public class AccountController {
 
     @Autowired
     private AccountService accountService;
-    @Operation(description = "Realiza abertura de conta")
-    @ApiResponses({
-            @ApiResponse(responseCode = "201", description = "Conta criada com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Dados da conta inválidos"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
-    })
     @PostMapping("/account")
     @Transactional
     public ResponseEntity accountOpening(@RequestBody @Valid AccountRecord accountRecord, Customer customer,  UriComponentsBuilder uriComponentsBuilder) throws AccountNotFoundException {
         return accountService.createAccountType(accountRecord, customer, uriComponentsBuilder);
     }
 
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Busca realizada"),
-            @ApiResponse(responseCode = "404", description = "Not Found"),
-    })
-    @Operation(description = "Busca lista de todas as contas ")
     @GetMapping("account")
     public ResponseEntity findAllAccount() {
         return accountService.findAllAccount();
